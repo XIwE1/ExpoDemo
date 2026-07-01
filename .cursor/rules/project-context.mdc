@@ -1,0 +1,94 @@
+---
+alwaysApply: true
+---
+
+# 项目概览
+
+- **名称**: my-expo
+- **类型**: Expo 跨平台移动应用（Android / iOS / Web）
+- **来源**: `create-expo-app` 模板，当前为 starter 阶段
+- **语言**: TypeScript（strict 模式）
+
+## 技术栈
+
+| 类别         | 版本 / 库                                                   |
+| ------------ | ----------------------------------------------------------- |
+| Expo SDK     | ~54.0.34                                                    |
+| React        | 19.1.0                                                      |
+| React Native | 0.81.5                                                      |
+| 路由         | expo-router ~6.0.23（文件路由）                             |
+| 导航         | @react-navigation/native + bottom-tabs                      |
+| 动画         | react-native-reanimated ~4.1.1                              |
+| 样式方案     | 内置主题（`constants/theme.ts`），未使用 NativeWind/Tamagui |
+
+## 实验特性（app.json）
+
+- **New Architecture**: 已启用（`newArchEnabled: true`）
+- **Typed Routes**: 已启用（`experiments.typedRoutes`）
+- **React Compiler**: 已启用（`experiments.reactCompiler`）
+
+## 目录结构
+
+```
+app/              # 页面与路由（expo-router 文件路由）
+  (tabs)/         # Tab 导航组：index（Home）、explore
+  modal.tsx       # 模态页
+components/       # 可复用 UI 组件
+  ui/             # 平台相关 UI（如 icon-symbol）
+  themed-*.tsx    # 主题感知组件
+constants/        # 主题色、字体等常量
+hooks/            # 自定义 hooks（如 use-color-scheme）
+assets/           # 图片、字体等静态资源
+scripts/          # 工具脚本（如 reset-project.js）
+```
+
+## 路由约定
+
+- 入口：`expo-router/entry`（见 package.json `main`）
+- 根布局：`app/_layout.tsx`（Stack + ThemeProvider）
+- Tab 锚点：`unstable_settings.anchor = '(tabs)'`
+- Deep link scheme：`myexpo://`
+
+## 代码约定
+
+- **路径别名**: `@/*` → 项目根目录（见 tsconfig.json）
+- **导入示例**: `import { Colors } from '@/constants/theme'`
+- **主题**: 使用 `useColorScheme()` + `Colors[colorScheme]`，组件优先用 `ThemedText` / `ThemedView`
+- **平台差异**: 部分组件有 `.ios.tsx` 变体（如 `icon-symbol.ios.tsx`）
+- **组件风格**: 函数组件 + hooks，无 class 组件
+
+## 常用命令
+
+```bash
+npm start          # expo start
+npm run android    # Android 模拟器
+npm run ios        # iOS 模拟器
+npm run web        # Web
+npm run lint       # ESLint
+npm run reset-project  # 重置为空白 app 目录
+```
+
+## 文档参考
+
+编写 Expo 相关代码前，**必须先查阅对应版本文档**：
+
+- Expo SDK 54: https://docs.expo.dev/versions/v54.0.0/
+- Expo Router: https://docs.expo.dev/router/introduction/
+
+## 用户偏好（协作约定）
+
+- 回复语言：简体中文
+- 非用户要求的优化：先询问再改
+- 不主动删除代码注释
+- 不主动跑测试/格式化，除非用户要求
+- 不主动创建 git commit，除非用户要求
+- 如有目录变化，同步到本配置文件的目录结构中
+
+## 待补充（按需编辑）
+
+<!-- 在此填写业务域、API 地址、环境变量、设计规范等 -->
+
+- **业务描述**:
+- **后端 / API**:
+- **环境变量**:
+- **设计规范**:
