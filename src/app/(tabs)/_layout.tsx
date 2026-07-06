@@ -1,8 +1,8 @@
-import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 import React from "react";
 import { StyleSheet } from "react-native";
 
+import { IconSymbol } from "@/components/ui/icon-symbol";
 import TabIcon from "@/components/ui/TabIcon";
 import { useColorScheme } from "@/hooks/use-color-scheme";
 
@@ -21,7 +21,11 @@ export default function TabLayout() {
         headerTransparent: true, // 不占布局高度，浮在内容上
         headerTitle: "",
         headerLeft: ({ tintColor }) => (
-          <Ionicons name="menu-outline" size={24} color={tintColor} />
+          <IconSymbol
+            size={20}
+            name="density-medium"
+            color={tintColor ?? "#000"}
+          />
         ),
         headerLeftContainerStyle: styles.headerLeftContainer,
         tabBarStyle: styles.tabBar,
