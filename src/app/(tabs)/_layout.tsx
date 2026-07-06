@@ -1,9 +1,9 @@
+import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 import React from "react";
 import { StyleSheet } from "react-native";
 
-import { IconSymbol } from "@/components/ui/icon-symbol";
-import { Colors } from "@/constants/theme";
+import TabIcon from "@/components/ui/TabIcon";
 import { useColorScheme } from "@/hooks/use-color-scheme";
 
 export default function TabLayout() {
@@ -21,22 +21,20 @@ export default function TabLayout() {
         headerTransparent: true, // 不占布局高度，浮在内容上
         headerTitle: "",
         headerLeft: ({ tintColor }) => (
-          <IconSymbol
-            size={20}
-            name="density-medium"
-            color={tintColor ?? "#000"}
-          />
+          <Ionicons name="menu-outline" size={24} color={tintColor} />
         ),
         headerLeftContainerStyle: styles.headerLeftContainer,
-        tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
+        tabBarStyle: styles.tabBar,
+        tabBarIconStyle: styles.tabBarIcon,
+        tabBarLabelStyle: styles.tabBarLabel,
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
           title: "推荐",
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="article" color={color} />
+          tabBarIcon: ({ color, focused }) => (
+            <TabIcon name="newspaper-outline" color={color} />
           ),
         }}
       />
@@ -44,8 +42,8 @@ export default function TabLayout() {
         name="rank"
         options={{
           title: "排行榜",
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="leaderboard" color={color} />
+          tabBarIcon: ({ color, focused }) => (
+            <TabIcon name="podium-outline" color={color} />
           ),
         }}
       />
@@ -54,7 +52,7 @@ export default function TabLayout() {
         options={{
           title: "战绩",
           tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="sports-esports" color={color} />
+            <TabIcon name="game-controller-outline" color={color} />
           ),
         }}
       />
@@ -65,5 +63,14 @@ export default function TabLayout() {
 const styles = StyleSheet.create({
   headerLeftContainer: {
     paddingLeft: 18,
+  },
+  tabBar: {
+    paddingTop: 5,
+  },
+  tabBarIcon: {
+    marginBottom: 4,
+  },
+  tabBarLabel: {
+    fontSize: 11,
   },
 });
