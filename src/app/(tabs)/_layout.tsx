@@ -1,7 +1,7 @@
 import { Tabs } from "expo-router";
 import React from "react";
+import { StyleSheet } from "react-native";
 
-import { HapticTab } from "@/components/haptic-tab";
 import { IconSymbol } from "@/components/ui/icon-symbol";
 import { Colors } from "@/constants/theme";
 import { useColorScheme } from "@/hooks/use-color-scheme";
@@ -22,19 +22,13 @@ export default function TabLayout() {
         headerTitle: "",
         headerLeft: ({ tintColor }) => (
           <IconSymbol
-            size={28}
+            size={20}
             name="density-medium"
             color={tintColor ?? "#000"}
-            style={{
-              transform: [{ scale: 0.7 }],
-            }}
           />
         ),
-        headerLeftContainerStyle: {
-          paddingLeft: 16,
-        },
+        headerLeftContainerStyle: styles.headerLeftContainer,
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
-        tabBarButton: HapticTab,
       }}
     >
       <Tabs.Screen
@@ -67,3 +61,9 @@ export default function TabLayout() {
     </Tabs>
   );
 }
+
+const styles = StyleSheet.create({
+  headerLeftContainer: {
+    paddingLeft: 18,
+  },
+});
