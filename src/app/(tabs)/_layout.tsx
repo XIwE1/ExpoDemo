@@ -16,8 +16,24 @@ export default function TabLayout() {
     // </NativeTabs>
     <Tabs
       screenOptions={{
+        headerShown: true,
+        headerShadowVisible: false, // 去掉默认底边线
+        headerTransparent: true, // 不占布局高度，浮在内容上
+        headerTitle: "",
+        headerLeft: ({ tintColor }) => (
+          <IconSymbol
+            size={28}
+            name="density-medium"
+            color={tintColor ?? "#000"}
+            style={{
+              transform: [{ scale: 0.7 }],
+            }}
+          />
+        ),
+        headerLeftContainerStyle: {
+          paddingLeft: 16,
+        },
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
-        headerShown: false,
         tabBarButton: HapticTab,
       }}
     >

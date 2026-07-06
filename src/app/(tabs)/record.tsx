@@ -1,7 +1,7 @@
 import { StyleSheet, Text } from "react-native";
 
-export default function TabTwoScreen() {
-  return <Text>User</Text>;
+export default function RecordScreen() {
+  return <Text>record</Text>;
 }
 
 const styles = StyleSheet.create({
