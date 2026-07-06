@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LoL 大乱斗资讯 App — 原型图</title>
+  <style>
+    :root {
+      --bg: #0F1419;
+      --card: #1A2332;
+      --card-hover: #222d3f;
+      --gold: #C8AA6E;
+      --gold-dim: rgba(200, 170, 110, 0.15);
+      --teal: #0397AB;
+      --text: #E8E6E3;
+      --muted: #8B9BB4;
+      --win: #4ADE80;
+      --lose: #F87171;
+      --border: #2a3548;
+      --phone-w: 375px;
+      --phone-h: 812px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: #080b10;
+      color: var(--text);
+      min-height: 100vh;
+      padding: 32px 24px 64px;
+    }
+
+    .page-header {
+      max-width: 1400px;
+      margin: 0 auto 40px;
+    }
+
+    .page-header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .page-header p {
+      color: var(--muted);
+      line-height: 1.6;
+      max-width: 720px;
+    }
+
+    .page-header a {
+      color: var(--gold);
+    }
+
+    .gallery {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+      gap: 48px 32px;
+    }
+
+    .screen-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .screen-label {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--gold);
+      letter-spacing: 0.5px;
+    }
+
+    .screen-desc {
+      font-size: 13px;
+      color: var(--muted);
+      text-align: center;
+      max-width: 375px;
+    }
+
+    /* Phone frame */
+    .phone {
+      width: var(--phone-w);
+      height: var(--phone-h);
+      background: var(--bg);
+      border-radius: 40px;
+      border: 3px solid #333;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.6), inset 0 0 0 2px #1a1a1a;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .phone::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 28px;
+      background: #111;
+      border-radius: 0 0 16px 16px;
+      z-index: 10;
+    }
+
+    .status-bar {
+      height: 44px;
+      padding: 12px 24px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .app-header {
+      height: 48px;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .app-header .menu {
+      width: 32px;
+      font-size: 20px;
+      color: var(--text);
+      cursor: default;
+    }
+
+    .app-header .back {
+      width: 32px;
+      font-size: 18px;
+      color: var(--gold);
+    }
+
+    .app-header .title {
+      flex: 1;
+      text-align: center;
+      font-size: 17px;
+      font-weight: 600;
+    }
+
+    .app-header .right { width: 32px; }
+
+    .content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+    }
+
+    .content.no-pad { padding: 0; }
+
+    .tab-bar {
+      height: 72px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      background: #0a0e14;
+      flex-shrink: 0;
+      padding-bottom: 8px;
+    }
+
+    .tab-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    .tab-item.active { color: var(--gold); }
+
+    .tab-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      background: var(--card);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    .tab-item.active .tab-icon {
+      background: var(--gold-dim);
+    }
+
+    /* Components */
+    .cat-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .cat-tab {
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      background: var(--card);
+      color: var(--muted);
+    }
+
+    .cat-tab.active {
+      background: var(--gold);
+      color: #0F1419;
+      font-weight: 600;
+    }
+
+    .news-card {
+      background: var(--card);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 12px;
+      display: flex;
+      gap: 12px;
+      padding: 12px;
+    }
+
+    .news-thumb {
+      width: 88px;
+      height: 66px;
+      border-radius: 8px;
+      flex-shrink: 0;
+      background: linear-gradient(135deg, #1e3a5f, #0d2137);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+
+    .news-body { flex: 1; min-width: 0; }
+
+    .news-title {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.4;
+      margin-bottom: 6px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .news-meta {
+      font-size: 11px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge {
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(3, 151, 171, 0.2);
+      color: var(--teal);
+    }
+
+    .badge.video {
+      background: rgba(200, 170, 110, 0.2);
+      color: var(--gold);
+    }
+
+    .seg-control {
+      display: flex;
+      background: var(--card);
+      border-radius: 10px;
+      padding: 4px;
+      margin-bottom: 8px;
+    }
+
+    .seg-item {
+      flex: 1;
+      text-align: center;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .seg-item.active {
+      background: var(--gold);
+      color: #0F1419;
+      font-weight: 600;
+    }
+
+    .subtitle {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .rank-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      background: var(--card);
+      border-radius: 12px;
+      margin-bottom: 8px;
+    }
+
+    .rank-num {
+      width: 24px;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--gold);
+      text-align: center;
+    }
+
+    .rank-num.normal { color: var(--muted); font-weight: 500; }
+
+    .avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2a4060, #1a2840);
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .avatar.lg {
+      width: 72px;
+      height: 72px;
+      font-size: 32px;
+    }
+
+    .rank-info { flex: 1; }
+    .rank-name { font-size: 15px; font-weight: 600; }
+    .rank-stat { font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+    .section {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+
+    .items-row {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .item-slot {
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      background: #0F1419;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .build-note {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+
+    .tier-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 8px;
+      align-items: flex-start;
+    }
+
+    .tier-label {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .tier-s { background: var(--gold-dim); color: var(--gold); }
+    .tier-a { background: rgba(139,155,180,0.2); color: var(--muted); }
+    .tier-b { background: rgba(139,155,180,0.1); color: #666; }
+
+    .tier-names { font-size: 13px; line-height: 1.5; color: var(--text); }
+
+    .hero-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px;
+      background: var(--card);
+      margin-bottom: 12px;
+    }
+
+    .hero-header .info h2 { font-size: 20px; margin-bottom: 4px; }
+    .hero-header .info p { font-size: 12px; color: var(--muted); }
+
+    .search-box {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .search-input {
+      flex: 1;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    .search-input::placeholder { color: #556; }
+
+    .search-btn {
+      background: var(--gold);
+      color: #0F1419;
+      border: none;
+      border-radius: 10px;
+      padding: 0 16px;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .bind-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--card);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 16px;
+      font-size: 13px;
+    }
+
+    .bind-row .link { color: var(--teal); font-size: 12px; }
+
+    .section-label {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .match-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      background: var(--card);
+      border-radius: 12px;
+      margin-bottom: 8px;
+    }
+
+    .match-result {
+      width: 28px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .match-result.win { color: var(--win); }
+    .match-result.lose { color: var(--lose); }
+
+    .match-info { flex: 1; }
+    .match-kda { font-size: 14px; font-weight: 600; }
+    .match-time { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+    .login-hint {
+      text-align: center;
+      padding: 24px 16px;
+      background: var(--card);
+      border-radius: 12px;
+      margin-bottom: 16px;
+    }
+
+    .login-hint p { font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      border: none;
+      cursor: default;
+    }
+
+    .btn-gold { background: var(--gold); color: #0F1419; }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      margin-left: 8px;
+    }
+
+    .detail-cover {
+      height: 200px;
+      background: linear-gradient(160deg, #1a3050 0%, #0F1419 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+    }
+
+    .detail-body { padding: 16px; }
+
+    .detail-title {
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+
+    .detail-meta {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .detail-summary {
+      font-size: 14px;
+      line-height: 1.7;
+      color: #c8c6c3;
+      margin-bottom: 24px;
+    }
+
+    .btn-full {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      text-align: center;
+      background: var(--gold);
+      color: #0F1419;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+    }
+
+    .player-header {
+      text-align: center;
+      padding: 20px 16px;
+      background: var(--card);
+      border-radius: 12px;
+      margin-bottom: 12px;
+    }
+
+    .player-id { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+    .player-stats { font-size: 13px; color: var(--muted); }
+
+    .champ-row {
+      display: flex;
+      gap: 12px;
+    }
+
+    .champ-chip {
+      flex: 1;
+      background: #0F1419;
+      border-radius: 10px;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .champ-chip .avatar { margin: 0 auto 6px; width: 40px; height: 40px; font-size: 18px; }
+    .champ-chip .name { font-size: 12px; font-weight: 600; }
+    .champ-chip .games { font-size: 11px; color: var(--muted); }
+
+    .profile-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px 16px;
+    }
+
+    .profile-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: var(--card);
+      border: 3px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      margin-bottom: 12px;
+    }
+
+    .profile-name { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
+
+    .profile-bind {
+      width: 100%;
+      background: var(--card);
+      border-radius: 12px;
+      padding: 14px;
+      margin: 20px 0;
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+    }
+
+    .logout {
+      color: var(--lose);
+      font-size: 14px;
+      margin-top: 16px;
+    }
+
+    .tips-text { font-size: 13px; line-height: 1.6; color: #c8c6c3; }
+    .skill-text { font-size: 14px; color: var(--teal); font-weight: 500; }
+  </style>
+</head>
+<body>
+  <div class="page-header">
+    <h1>LoL 大乱斗资讯 App — 原型图</h1>
+    <p>
+      V1 交互原型，深色工具风。在浏览器中打开本文件即可预览；需要 PNG 时可对单个手机框截图。
+      完整规格见 <a href="../product-design.md">product-design.md</a>。
+    </p>
+  </div>
+
+  <div class="gallery">
+
+    <!-- 01 推荐 -->
+    <div class="screen-wrap">
+      <div class="screen-label">01 · 推荐 Tab</div>
+      <div class="phone">
+        <div class="status-bar"><span>9:41</span><span>5G ▮▮▮</span></div>
+        <div class="app-header">
+          <span class="menu">≡</span>
+          <span class="title">推荐</span>
+          <span class="right"></span>
+        </div>
+        <div class="content">
+          <div class="cat-tabs">
+            <span class="cat-tab active">综合</span>
+            <span class="cat-tab">攻略</span>
+            <span class="cat-tab">赛事</span>
+          </div>
+          <div class="news-card">
+            <div class="news-thumb">📰</div>
+            <div class="news-body">
+              <div class="news-title">14.2 大乱斗平衡性解读</div>
+              <div class="news-meta"><span>官方 · 2小时前</span><span class="badge video">视频</span></div>
+            </div>
+          </div>
+          <div class="news-card">
+            <div class="news-thumb">⚔️</div>
+            <div class="news-body">
+              <div class="news-title">极地大乱斗十大强势英雄</div>
+              <div class="news-meta"><span>攻略 · 昨天</span><span class="badge">图文</span></div>
+            </div>
+          </div>
+          <div class="news-card">
+            <div class="news-thumb">🏆</div>
+            <div class="news-body">
+              <div class="news-title">LPL 春季赛决赛前瞻</div>
+              <div class="news-meta"><span>赛事 · 3天前</span><span class="badge">图文</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-bar">
+          <div class="tab-item active"><div class="tab-icon">📋</div>推荐</div>
+          <div class="tab-item"><div class="tab-icon">📊</div>排行</div>
+          <div class="tab-item"><div class="tab-icon">🎮</div>战绩</div>
+          <div class="tab-item"><div class="tab-icon">👤</div>个人</div>
+        </div>
+      </div>
+      <p class="screen-desc">分类 Tab + 资讯卡片流，点击进入详情</p>
+    </div>
+
+    <!-- 02 资讯详情 -->
+    <div class="screen-wrap">
+      <div class="screen-label">02 · 资讯详情</div>
+      <div class="phone">
+        <div class="status-bar"><span>9:41</span><span>5G ▮▮▮</span></div>
+        <div class="app-header">
+          <span class="back">←</span>
+          <span class="title">资讯详情</span>
+          <span class="right"></span>
+        </div>
+        <div class="content no-pad">
+          <div class="detail-cover">📰</div>
+          <div class="detail-body">
+            <div class="detail-title">14.2 大乱斗平衡性解读</div>
+            <div class="detail-meta">官方 · 2026-07-06 · 视频</div>
+            <div class="detail-summary">
+              本次版本对极地大乱斗模式进行了多项平衡调整，涉及十余名英雄的数值改动。亚索、金克丝伤害下调，坦克类英雄获得小幅加强……
+            </div>
+            <button class="btn-full">查看原文 ↗</button>
+          </div>
+        </div>
+      </div>
+      <p class="screen-desc">摘要 + 跳转外链（系统浏览器）</p>
+    </div>
+
+    <!-- 03 排行 -->
+    <div class="screen-wrap">
+      <div class="screen-label">03 · 排行 Tab</div>
+      <div class="phone">
+        <div class="status-bar"><span>9:41</span><span>5G ▮▮▮</span></div>
+        <div class="app-header">
+          <span class="menu">≡</span>
+          <span class="title">排行</span>
+          <span class="right"></span>
+        </div>
+        <div class="content">
+          <div class="seg-control">
+            <span class="seg-item active">热度</span>
+            <span class="seg-item">胜率</span>
+          </div>
+          <div class="subtitle">大乱斗 · 国服</div>
+          <div class="rank-item">
+            <span class="rank-num">1</span>
+            <div class="avatar">🗡️</div>
+            <div class="rank-info"><div class="rank-name">亚索</div><div class="rank-stat">登场 18.2%</div></div>
+          </div>
+          <div class="rank-item">
+            <span class="rank-num">2</span>
+            <div class="avatar">🔫</div>
+            <div class="rank-info"><div class="rank-name">金克丝</div><div class="rank-stat">登场 15.7%</div></div>
+          </div>
+          <div class="rank-item">
+            <span class="rank-num">3</span>
+            <div class="avatar">✨</div>
+            <div class="rank-info"><div class="rank-name">拉克丝</div><div class="rank-stat">登场 14.1%</div></div>
+          </div>
+          <div class="rank-item">
+            <span class="rank-num normal">4</span>
+            <div class="avatar">🍄</div>
+            <div class="rank-info"><div class="rank-name">提莫</div><div class="rank-stat">登场 12.8%</div></div>
+          </div>
+          <div class="rank-item">
+            <span class="rank-num normal">5</span>
+            <div class="avatar">🛡️</div>
+            <div class="rank-info"><div class="rank-name">盖伦</div><div class="rank-stat">登场 11.5%</div></div>
+          </div>
+        </div>
+        <div class="tab-bar">
+          <div class="tab-item"><div class="tab-icon">📋</div>推荐</div>
+          <div class="tab-item active"><div class="tab-icon">📊</div>排行</div>
+          <div class="tab-item"><div class="tab-icon">🎮</div>战绩</div>
+          <div class="tab-item"><div class="tab-icon">👤</div>个人</div>
+        </div>
+      </div>
+      <p class="screen-desc">热度/胜率切换，点击进入英雄详情</p>
+    </div>
+
+    <!-- 04 英雄详情 -->
+    <div class="screen-wrap">
+      <div class="screen-label">04 · 英雄详情</div>
+      <div class="phone">
+        <div class="status-bar"><span>9:41</span><span>5G ▮▮▮</span></div>
+        <div class="app-header">
+          <span class="back">←</span>
+          <span class="title">亚索</span>
+          <span class="right"></span>
+        </div>
+        <div class="content no-pad">
+          <div class="hero-header">
+            <div class="avatar lg">🗡️</div>
+            <div class="info"><h2>亚索</h2><p>大乱斗 · 国服</p></div>
+          </div>
+          <div style="padding: 0 16px 16px;">
+            <div class="section">
+              <div class="section-title">推荐出装</div>
+              <div class="items-row">
+                <div class="item-slot">⚔️</div>
+                <div class="item-slot">👢</div>
+                <div class="item-slot">🗡️</div>
+                <div class="item-slot">🛡️</div>
+                <div class="item-slot">💎</div>
+                <div class="item-slot">👟</div>
+              </div>
+              <div class="build-note">核心：无尽之刃 → 绿叉</div>
+            </div>
+            <div class="section">
+              <div class="section-title">海克斯符文优先级</div>
+              <div class="tier-row"><span class="tier-label tier-s">S</span><span class="tier-names">踢踏舞 / 终极刷新 / 珠光护手</span></div>
+              <div class="tier-row"><span class="tier-label tier-a">A</span><span class="tier-names">灵魂虹吸 / 升级：献祭</span></div>
+              <div class="tier-row"><span class="tier-label tier-b">B</span><span class="tier-names">面包与黄油 / 练腿日</span></div>
+            </div>
+            <div class="section">
+              <div class="section-title">技能加点</div>
+              <div class="skill-text">Q → W → E，6 级 R</div>
+            </div>
+            <div class="section">
+              <div class="section-title">操作思路</div>
+              <div class="tips-text">利用 Q 风墙挡关键技能，团战中优先 E 到后排触发击飞，配合队友 AoE 打满伤害。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="screen-desc">出装、海克斯 S/A/B、加点、思路</p>
+    </div>
+
+    <!-- 05 战绩 -->
+    <div class="screen-wrap">
+      <div class="screen-label">05 · 战绩 Tab</div>
+      <div class="phone">
+        <div class="status-bar"><span>9:41</span><span>5G ▮▮▮</span></div>
+        <div class="app-header">
+          <span class="menu">≡</span>
+          <span class="title">战绩</span>
+          <span class="right"></span>
+        </div>
+        <div class="content">
+          <div class="search-box">
+            <input class="search-input" placeholder="召唤师名#标签" readonly value="Faker#CN1" />
+            <button class="search-btn">搜索</button>
+          </div>
+          <div class="bind-row">
+            <span>我的绑定：DemoPlayer#CN1</span>
+            <span class="link">换绑</span>
+          </div>
+          <div class="section-label">最近对局</div>
+          <div class="match-item">
+            <span class="match-result win">胜</span>
+            <div class="avatar">🗡️</div>
+            <div class="match-info">
+              <div class="match-kda">亚索 · 12/3/8</div>
+              <div class="match-time">昨天 22:15 · 28:34</div>
+            </div>
+          </div>
+          <div class="match-item">
+            <span class="match-result lose">负</span>
+            <div class="avatar">🍄</div>
+            <div class="match-info">
+              <div class="match-kda">提莫 · 2/8/11</div>
+              <div class="match-time">昨天 20:01 · 15:22</div>
+            </div>
+          </div>
+          <div class="match-item">
+            <span class="match-result win">胜</span>
+            <div class="avatar">✨</div>
+            <div class="match-info">
+              <div class="match-kda">拉克丝 · 8/2/15</div>
+              <div class="match-time">2天前 · 19:45</div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-bar">
+          <div class="tab-item"><div class="tab-icon">📋</div>推荐</div>
+          <div class="tab-item"><div class="tab-icon">📊</div>排行</div>
+          <div class="tab-item active"><div class="tab-icon">🎮</div>战绩</div>
+          <div class="tab-item"><div class="tab-icon">👤</div>个人</div>
+        </div>
+      </div>
+      <p class="screen-desc">搜索玩家 + 绑定 ID + 我的对局列表</p>
+    </div>
+
+    <!-- 06 玩家详情 -->
+    <div class="screen-wrap">
+      <div class="screen-label">06 · 玩家详情</div>
+      <div class="phone">
+        <div class="status-bar"><span>9:41</span><span>5G ▮▮▮</span></div>
+        <div class="app-header">
+          <span class="back">←</span>
+          <span class="title">玩家详情</span>
+          <span class="right"></span>
+        </div>
+        <div class="content">
+          <div class="player-header">
+            <div class="player-id">Faker#CN1</div>
+            <div class="player-stats">黄金 II · 大乱斗 · 胜率 52%</div>
+          </div>
+          <div class="section">
+            <div class="section-title">常用英雄</div>
+            <div class="champ-row">
+              <div class="champ-chip"><div class="avatar">🗡️</div><div class="name">亚索</div><div class="games">32 场</div></div>
+              <div class="champ-chip"><div class="avatar">🔫</div><div class="name">金克丝</div><div class="games">28 场</div></div>
+              <div class="champ-chip"><div class="avatar">✨</div><div class="name">拉克丝</div><div class="games">21 场</div></div>
+            </div>
+          </div>
+          <div class="section-label">最近对局</div>
+          <div class="match-item">
+            <span class="match-result win">胜</span>
+            <div class="avatar">🗡️</div>
+            <div class="match-info"><div class="match-kda">亚索 · 12/3/8</div><div class="match-time">昨天 · 28:34</div></div>
+          </div>
+          <div class="match-item">
+            <span class="match-result lose">负</span>
+            <div class="avatar">🍄</div>
+            <div class="match-info"><div class="match-kda">提莫 · 2/8/11</div><div class="match-time">昨天 · 15:22</div></div>
+          </div>
+        </div>
+      </div>
+      <p class="screen-desc">段位、胜率、常用英雄、对局列表</p>
+    </div>
+
+    <!-- 07 个人 -->
+    <div class="screen-wrap">
+      <div class="screen-label">07 · 个人 Tab</div>
+      <div class="phone">
+        <div class="status-bar"><span>9:41</span><span>5G ▮▮▮</span></div>
+        <div class="app-header">
+          <span class="menu">≡</span>
+          <span class="title">个人</span>
+          <span class="right"></span>
+        </div>
+        <div class="content">
+          <div class="profile-center">
+            <div class="profile-avatar">👤</div>
+            <div class="profile-name">demo</div>
+            <div class="profile-bind">
+              <span>绑定 ID：DemoPlayer#CN1</span>
+              <span class="link">修改</span>
+            </div>
+            <div class="logout">退出登录</div>
+          </div>
+        </div>
+        <div class="tab-bar">
+          <div class="tab-item"><div class="tab-icon">📋</div>推荐</div>
+          <div class="tab-item"><div class="tab-icon">📊</div>排行</div>
+          <div class="tab-item"><div class="tab-icon">🎮</div>战绩</div>
+          <div class="tab-item active"><div class="tab-icon">👤</div>个人</div>
+        </div>
+      </div>
+      <p class="screen-desc">登录态、绑定 ID、退出（未登录时显示登录/注册）</p>
+    </div>
+
+  </div>
+</body>
+</html>

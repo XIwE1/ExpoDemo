@@ -88,9 +88,24 @@ npm run reset-project  # 重置为空白 app 目录
 
 ## 待补充（按需编辑）
 
-<!-- 在此填写业务域、API 地址、环境变量、设计规范等 -->
+- **业务描述**: LoL 国服大乱斗资讯 App — 推荐资讯、英雄排行（热度/胜率）、战绩查询、站内账号
+- **后端 / API**: V1 假数据原型；资讯自建 CMS，战绩/排行待对接 API
+- **环境变量**: 暂无
+- **设计规范**: 见 `docs/product-design.md`，原型见 `docs/prototypes/index.html`
 
-- **业务描述**:
-- **后端 / API**:
-- **环境变量**:
-- **设计规范**:
+## 目录结构（业务相关）
+
+```
+docs/
+  product-design.md     # 产品设计文档
+  prototypes/
+    index.html          # 7 页 HTML 原型图
+src/
+  app/
+    (tabs)/             # 推荐 index、排行 rank、战绩 record、个人 profile
+    news/[id].tsx       # （待建）资讯详情
+    hero/[id].tsx       # （待建）英雄详情
+    player/[id].tsx     # （待建）玩家详情
+    login.tsx           # （待建）登录
+    register.tsx        # （待建）注册
+```
