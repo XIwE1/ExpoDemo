@@ -15,7 +15,7 @@ export default function CardItem(props: CardItemProps) {
   return (
     <ThemedView style={styles.container}>
       <ThemedView style={styles.left}>
-        <ThemedText type="subtitle" numberOfLines={1}>
+        <ThemedText type="defaultSemiBold" numberOfLines={1}>
           {title}
         </ThemedText>
 
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   left: {
     flex: 2,
     flexDirection: "column",
-    gap: 4,
+    gap: 6,
   },
   right: {
     flex: 1,

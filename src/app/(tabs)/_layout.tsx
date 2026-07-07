@@ -7,14 +7,12 @@ import { IconSymbol } from "@/components/ui/icon-symbol";
 import TabIcon from "@/components/ui/TabIcon";
 import { useColorScheme } from "@/hooks/use-color-scheme";
 
-
 export default function TabLayout() {
   const colorScheme = useColorScheme();
 
   const segments = useSegments();
   const activeTab = segments[1] ?? "index";
 
-  console.log(activeTab);
   return (
     // <NativeTabs>
     //   <NativeTabs.Trigger name="index" options={{ title: 'Home' }} />

@@ -14,6 +14,7 @@ export const Colors = {
   light: {
     // text: "#11181C",
     text: "gray",
+    heading: "#000",
     background: "#fff",
     tint: tintColorLight,
     icon: "#687076",
@@ -22,6 +23,7 @@ export const Colors = {
   },
   dark: {
     text: "#ECEDEE",
+    heading: "#fff",
     background: "#151718",
     tint: tintColorDark,
     icon: "#9BA1A6",

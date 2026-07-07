@@ -17,7 +17,7 @@ export default function HomeScreen() {
           tag={{
             category: "攻略",
             time: "2026-07-06",
-            mediaType: "图文",
+            mediaType: "image",
           }}
         />
       </ThemedView>
