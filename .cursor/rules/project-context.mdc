@@ -47,9 +47,7 @@ scripts/          # 工具脚本（如 reset-project.js）
 
 ## 路由约定
 
-- 入口：`expo-router/entry`（见 package.json `main`）
 - 根布局：`app/_layout.tsx`（Stack + ThemeProvider）
-- Tab 锚点：`unstable_settings.anchor = '(tabs)'`
 - Deep link scheme：`myexpo://`
 
 ## 代码约定
@@ -57,7 +55,6 @@ scripts/          # 工具脚本（如 reset-project.js）
 - **路径别名**: `@/*` → 项目根目录（见 tsconfig.json）
 - **导入示例**: `import { Colors } from '@/constants/theme'`
 - **主题**: 使用 `useColorScheme()` + `Colors[colorScheme]`，组件优先用 `ThemedText` / `ThemedView`
-- **平台差异**: 部分组件有 `.ios.tsx` 变体（如 `icon-symbol.ios.tsx`）
 - **组件风格**: 函数组件 + hooks，无 class 组件
 
 ## 常用命令
@@ -81,7 +78,6 @@ npm run reset-project  # 重置为空白 app 目录
 
 ## 用户偏好（协作约定）
 
-- 回复语言：简体中文
 - 非用户要求的优化：先询问再改
 - 不主动删除代码注释
 - 不主动跑测试/格式化，除非用户要求
@@ -104,7 +100,7 @@ docs/
     index.html          # 7 页 HTML 原型图
 src/
   app/
-    (tabs)/             # 推荐 index、排行 rank、战绩 record、个人 profile
+    (tabs)/             # 推荐 index、排行 rank、战绩 record
     news/[id].tsx       # （待建）资讯详情
     hero/[id].tsx       # （待建）英雄详情
     player/[id].tsx     # （待建）玩家详情

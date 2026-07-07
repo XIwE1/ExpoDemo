@@ -2,6 +2,7 @@ import { Tabs } from "expo-router";
 import React from "react";
 import { StyleSheet } from "react-native";
 
+import { CustomHeaderTabs } from "@/components/CustomTabs";
 import { IconSymbol } from "@/components/ui/icon-symbol";
 import TabIcon from "@/components/ui/TabIcon";
 import { useColorScheme } from "@/hooks/use-color-scheme";
@@ -37,7 +38,22 @@ export default function TabLayout() {
         name="index"
         options={{
           title: "推荐",
-          tabBarIcon: ({ color, focused }) => (
+          headerTitle: () => {
+            return (
+              <CustomHeaderTabs
+                tabs={["综合", "攻略", "赛事"]}
+                onTabChange={() => {}}
+              />
+            );
+          },
+          headerRight: ({ tintColor }) => (
+            <TabIcon
+              name="search"
+              color={tintColor ?? "#000"}
+              style={styles.headerRightContainer}
+            />
+          ),
+          tabBarIcon: ({ color }) => (
             <TabIcon name="newspaper-outline" color={color} />
           ),
         }}
@@ -46,7 +62,7 @@ export default function TabLayout() {
         name="rank"
         options={{
           title: "排行榜",
-          tabBarIcon: ({ color, focused }) => (
+          tabBarIcon: ({ color }) => (
             <TabIcon name="podium-outline" color={color} />
           ),
         }}
@@ -67,6 +83,9 @@ export default function TabLayout() {
 const styles = StyleSheet.create({
   headerLeftContainer: {
     paddingLeft: 18,
+  },
+  headerRightContainer: {
+    paddingRight: 18,
   },
   tabBar: {
     paddingTop: 5,

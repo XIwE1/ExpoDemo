@@ -6,8 +6,10 @@ type TabIconProps = {
   name: IoniconName;
   color: string;
   size?: number;
+  style?: any;
 };
 
-export default function TabIcon({ name, color, size = 26 }: TabIconProps) {
-  return <Ionicons name={name} size={size} color={color} />;
+export default function TabIcon(props: TabIconProps) {
+  const { name, color, size = 26, style } = props;
+  return <Ionicons name={name} size={size} color={color} style={style} />;
 }

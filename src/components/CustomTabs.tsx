@@ -1,0 +1,97 @@
+import { useThemeColor } from "@/hooks/use-theme-color";
+import React, { useRef, useState } from "react";
+import {
+    Animated,
+    LayoutRectangle,
+    StyleSheet,
+    TouchableOpacity,
+} from "react-native";
+import { ThemedText } from "./themed-text";
+import { ThemedView } from "./themed-view";
+
+interface CustomHeaderTabsProps {
+  tabs: string[];
+  onTabChange: (tab: string) => void;
+}
+
+export const CustomHeaderTabs = ({
+  tabs,
+  onTabChange,
+}: CustomHeaderTabsProps) => {
+  const [activeTab, setActiveTab] = useState(0);
+  const activeColor = useThemeColor({}, "tint");
+  const inactiveColor = useThemeColor({}, "text");
+
+  const tabLayouts = useRef<LayoutRectangle[]>([]);
+  const underlineLeft = useRef(new Animated.Value(0)).current;
+  const underlineWidth = useRef(new Animated.Value(0)).current;
+
+  const moveUnderline = (index: number) => {
+    const layout = tabLayouts.current[index];
+    if (!layout) return;
+    Animated.parallel([
+      Animated.timing(underlineLeft, {
+        toValue: layout.x + 11,
+        duration: 200,
+        useNativeDriver: false,
+      }),
+      Animated.timing(underlineWidth, {
+        toValue: 20,
+        duration: 200,
+        useNativeDriver: false,
+      }),
+    ]).start();
+  };
+
+  return (
+    <ThemedView style={styles.container}>
+      {tabs.map((tab, index) => (
+        <TouchableOpacity
+          key={index}
+          onLayout={(e) => {
+            tabLayouts.current[index] = e.nativeEvent.layout;
+            if (index === activeTab) moveUnderline(index);
+          }}
+          onPress={() => {
+            setActiveTab(index);
+            onTabChange(tab);
+            moveUnderline(index);
+          }}
+          style={styles.tab}
+        >
+          <ThemedText
+            style={[
+              styles.tabText,
+              { color: activeTab === index ? activeColor : inactiveColor },
+              activeTab === index && styles.activeTabText,
+            ]}
+          >
+            {tab}
+          </ThemedText>
+        </TouchableOpacity>
+      ))}
+      <Animated.View
+        style={[
+          styles.underline,
+          {
+            left: underlineLeft,
+            width: underlineWidth,
+            backgroundColor: activeColor,
+          },
+        ]}
+      />
+    </ThemedView>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: { flexDirection: "row", alignItems: "center" },
+  tab: { paddingHorizontal: 12, paddingVertical: 8, alignItems: "center" },
+  tabText: { fontSize: 16 },
+  activeTabText: { fontWeight: "bold" },
+  underline: {
+    position: "absolute",
+    bottom: 0,
+    height: 2,
+  },
+});
