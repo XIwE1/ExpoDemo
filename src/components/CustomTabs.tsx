@@ -1,10 +1,10 @@
 import { useThemeColor } from "@/hooks/use-theme-color";
 import React, { useRef, useState } from "react";
 import {
-    Animated,
-    LayoutRectangle,
-    StyleSheet,
-    TouchableOpacity,
+  Animated,
+  LayoutRectangle,
+  StyleSheet,
+  TouchableOpacity,
 } from "react-native";
 import { ThemedText } from "./themed-text";
 import { ThemedView } from "./themed-view";
@@ -36,7 +36,7 @@ export const CustomHeaderTabs = ({
         useNativeDriver: false,
       }),
       Animated.timing(underlineWidth, {
-        toValue: 20,
+        toValue: 16,
         duration: 200,
         useNativeDriver: false,
       }),
@@ -85,13 +85,13 @@ export const CustomHeaderTabs = ({
 };
 
 const styles = StyleSheet.create({
-  container: { flexDirection: "row", alignItems: "center" },
+  container: { flexDirection: "row", alignItems: "center", paddingBottom: 2 },
   tab: { paddingHorizontal: 12, paddingVertical: 8, alignItems: "center" },
   tabText: { fontSize: 16 },
   activeTabText: { fontWeight: "bold" },
   underline: {
     position: "absolute",
-    bottom: 0,
+    bottom: 4,
     height: 2,
   },
 });

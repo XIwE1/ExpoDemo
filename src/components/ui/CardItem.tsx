@@ -13,8 +13,8 @@ export interface CardItemProps {
 export default function CardItem(props: CardItemProps) {
   const { title, description, image, footer } = props;
   return (
-    <ThemedView style={styles.container}>
-      <ThemedView style={styles.left}>
+    <ThemedView type="surface" style={styles.container}>
+      <ThemedView type="surface" style={styles.left}>
         <ThemedText type="defaultSemiBold" numberOfLines={1}>
           {title}
         </ThemedText>
@@ -24,11 +24,15 @@ export default function CardItem(props: CardItemProps) {
             {description}
           </ThemedText>
         )}
-        {footer && <ThemedView style={styles.footer}>{footer}</ThemedView>}
+        {footer && (
+          <ThemedView type="surface" style={styles.footer}>
+            {footer}
+          </ThemedView>
+        )}
       </ThemedView>
 
       {image && (
-        <ThemedView style={styles.right}>
+        <ThemedView type="surface" style={styles.right}>
           <Image source={image} style={styles.image} />
         </ThemedView>
       )}
@@ -41,6 +45,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "stretch",
     gap: 8,
+    paddingTop: 2,
+    paddingLeft: 16,
+    paddingRight: 4,
+    paddingBottom: 2,
   },
   left: {
     flex: 2,

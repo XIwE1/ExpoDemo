@@ -35,7 +35,7 @@ export default function TagItem(props: TagItemProps) {
   const palette = TAG_COLORS[scheme];
   const c = palette[mediaType] ?? palette.default;
   return (
-    <ThemedView style={styles.row}>
+    <ThemedView type="surface" style={styles.row}>
       <ThemedText type="description">{category}·</ThemedText>
       <ThemedText type="description">{formatRelativeTime(time)}</ThemedText>
       <ThemedView style={[styles.tag, { backgroundColor: c.bg }]}>

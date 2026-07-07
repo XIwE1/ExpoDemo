@@ -9,7 +9,7 @@ export default function HomeScreen() {
       style={styles.container}
       contentContainerStyle={styles.contentContainer}
     >
-      <ThemedView>
+      <ThemedView type="surface" style={styles.container}>
         <NewsCardItem
           title="高压锅+法穿棒或峡谷等于版本答案？最详细的高压锅攻略"
           description="新一期璀璨臻彩召唤活动上线，至臻皮肤限时加入特等奖池。限时拿下心仪至臻、臻彩、限定皮肤，更有机会12元夺宝赢自选臻彩。臻彩【天龙之子 黛安娜 赫赫龙威】，【腥红之月 劫 琉璃】已加入自选臻彩池中，以下是详细介绍。"
@@ -26,14 +26,14 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    height: "100%",
+  wrapper: {
     flex: 1,
-    paddingLeft: 16,
-    paddingTop: 16,
-    paddingRight: 4,
   },
   contentContainer: {
     flexGrow: 1,
+  },
+  container: {
+    height: "100%",
+    paddingTop: 4,
   },
 });

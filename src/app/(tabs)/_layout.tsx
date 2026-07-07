@@ -5,10 +5,12 @@ import { StyleSheet } from "react-native";
 import { CustomHeaderTabs } from "@/components/CustomTabs";
 import { IconSymbol } from "@/components/ui/icon-symbol";
 import TabIcon from "@/components/ui/TabIcon";
+import { Colors } from "@/constants/theme";
 import { useColorScheme } from "@/hooks/use-color-scheme";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
+  const theme = Colors[colorScheme ?? "light"];
 
   const segments = useSegments();
   const activeTab = segments[1] ?? "index";
@@ -32,7 +34,7 @@ export default function TabLayout() {
           />
         ),
         headerLeftContainerStyle: styles.headerLeftContainer,
-        tabBarStyle: styles.tabBar,
+        tabBarStyle: { ...styles.tabBar, backgroundColor: theme.surface },
         tabBarIconStyle: styles.tabBarIcon,
         tabBarLabelStyle: styles.tabBarLabel,
       }}

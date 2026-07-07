@@ -14,6 +14,8 @@ export type ThemedTextProps = TextProps & {
     | "description";
 };
 
+const HEADING_TYPES = ["title", "subtitle", "defaultSemiBold"] as const;
+
 export function ThemedText({
   style,
   lightColor,
@@ -21,7 +23,12 @@ export function ThemedText({
   type = "default",
   ...rest
 }: ThemedTextProps) {
-  const color = useThemeColor({ light: lightColor, dark: darkColor }, "text");
+  const isHeading = (HEADING_TYPES as readonly string[]).includes(type);
+
+  const color = useThemeColor(
+    { light: lightColor, dark: darkColor },
+    isHeading ? "heading" : "text",
+  );
 
   return (
     <Text

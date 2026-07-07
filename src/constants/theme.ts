@@ -16,6 +16,7 @@ export const Colors = {
     text: "gray",
     heading: "#000",
     background: "#fff",
+    surface: "#f5f5f7", // 内容区背景
     tint: tintColorLight,
     icon: "#687076",
     tabIconDefault: "#687076",
@@ -25,6 +26,7 @@ export const Colors = {
     text: "#ECEDEE",
     heading: "#fff",
     background: "#151718",
+    surface: "#1c1c1e", // 深色模式内容区背景
     tint: tintColorDark,
     icon: "#9BA1A6",
     tabIconDefault: "#9BA1A6",
