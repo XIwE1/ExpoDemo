@@ -5,7 +5,10 @@ import { ThemedView } from "@/components/themed-view";
 
 export default function HomeScreen() {
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={styles.contentContainer}
+    >
       <ThemedView>
         <NewsCardItem
           title="高压锅+法穿棒或峡谷等于版本答案？最详细的高压锅攻略"
@@ -29,5 +32,8 @@ const styles = StyleSheet.create({
     paddingLeft: 16,
     paddingTop: 16,
     paddingRight: 4,
+  },
+  contentContainer: {
+    flexGrow: 1,
   },
 });

@@ -1,4 +1,4 @@
-import { Tabs } from "expo-router";
+import { Tabs, useSegments } from "expo-router";
 import React from "react";
 import { StyleSheet } from "react-native";
 
@@ -7,9 +7,14 @@ import { IconSymbol } from "@/components/ui/icon-symbol";
 import TabIcon from "@/components/ui/TabIcon";
 import { useColorScheme } from "@/hooks/use-color-scheme";
 
+
 export default function TabLayout() {
   const colorScheme = useColorScheme();
 
+  const segments = useSegments();
+  const activeTab = segments[1] ?? "index";
+
+  console.log(activeTab);
   return (
     // <NativeTabs>
     //   <NativeTabs.Trigger name="index" options={{ title: 'Home' }} />
@@ -19,7 +24,7 @@ export default function TabLayout() {
       screenOptions={{
         headerShown: true,
         headerShadowVisible: false, // 去掉默认底边线
-        // headerTransparent: true, // 不占布局高度，浮在内容上
+        headerTransparent: activeTab !== "index",
         headerTitle: "",
         headerLeft: ({ tintColor }) => (
           <IconSymbol
