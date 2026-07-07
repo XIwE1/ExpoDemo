@@ -19,7 +19,7 @@ export default function TabLayout() {
       screenOptions={{
         headerShown: true,
         headerShadowVisible: false, // 去掉默认底边线
-        headerTransparent: true, // 不占布局高度，浮在内容上
+        // headerTransparent: true, // 不占布局高度，浮在内容上
         headerTitle: "",
         headerLeft: ({ tintColor }) => (
           <IconSymbol
