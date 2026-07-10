@@ -4,14 +4,17 @@ import { ScrollView, StyleSheet } from "react-native";
 import NewsCardItem from "@/components/NewsCardItem";
 import { ThemedView } from "@/components/themed-view";
 import Refreshing from "@/components/ui/Refreshing";
+import { useToast } from "@/components/ui/Toast";
 
 export default function HomeScreen() {
   const [refreshing, setRefreshing] = useState(false);
+  const { show } = useToast();
 
   const onRefresh = () => {
     setRefreshing(true);
     setTimeout(() => {
       setRefreshing(false);
+      show("已刷新");
     }, 1000);
   };
 
