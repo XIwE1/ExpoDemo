@@ -62,6 +62,7 @@ type RefreshingProps = {
   headerHeight?: number;
   /** 弹性阻尼，越大下拉越费力，默认 0.8 */
   elasticity?: number;
+  onVerticalGesture?: (active: boolean) => void;
 };
 
 /** 封装好的下拉刷新：松手超过阈值才触发 onRefresh */
@@ -73,6 +74,7 @@ export default function Refreshing(props: RefreshingProps) {
     style,
     headerHeight = HEADER_HEIGHT,
     elasticity,
+    onVerticalGesture,
   } = props;
   const backgroundColor = useThemeColor({}, "background");
 
@@ -85,6 +87,7 @@ export default function Refreshing(props: RefreshingProps) {
       refreshing={refreshing}
       onRefresh={onRefresh}
       elasticity={elasticity}
+      onVerticalGesture={onVerticalGesture}
     >
       {children}
     </PullToRefresh>

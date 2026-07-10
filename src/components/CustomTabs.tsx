@@ -1,5 +1,5 @@
 import { useThemeColor } from "@/hooks/use-theme-color";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Animated,
   LayoutRectangle,
@@ -11,14 +11,16 @@ import { ThemedView } from "./themed-view";
 
 interface CustomHeaderTabsProps {
   tabs: string[];
-  onTabChange: (tab: string) => void;
+  activeIndex?: number;
+  onTabChange: (tab: string, index: number) => void;
 }
 
 export const CustomHeaderTabs = ({
   tabs,
+  activeIndex,
   onTabChange,
 }: CustomHeaderTabsProps) => {
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeTab, setActiveTab] = useState(activeIndex ?? 0);
   const activeColor = useThemeColor({}, "tint");
   const inactiveColor = useThemeColor({}, "text");
 
@@ -43,6 +45,13 @@ export const CustomHeaderTabs = ({
     ]).start();
   };
 
+  useEffect(() => {
+    if (activeIndex === undefined || activeIndex === activeTab) return;
+    setActiveTab(activeIndex);
+    moveUnderline(activeIndex);
+    // eslint-disable-next-line
+  }, [activeIndex]);
+
   return (
     <ThemedView style={styles.container}>
       {tabs.map((tab, index) => (
@@ -54,7 +63,7 @@ export const CustomHeaderTabs = ({
           }}
           onPress={() => {
             setActiveTab(index);
-            onTabChange(tab);
+            onTabChange(tab, index);
             moveUnderline(index);
           }}
           style={styles.tab}

@@ -2,7 +2,6 @@ import { Tabs, useSegments } from "expo-router";
 import React from "react";
 import { StyleSheet } from "react-native";
 
-import { CustomHeaderTabs } from "@/components/CustomTabs";
 import { IconSymbol } from "@/components/ui/icon-symbol";
 import TabIcon from "@/components/ui/TabIcon";
 import { Colors } from "@/constants/theme";
@@ -43,14 +42,6 @@ export default function TabLayout() {
         name="index"
         options={{
           title: "推荐",
-          headerTitle: () => {
-            return (
-              <CustomHeaderTabs
-                tabs={["综合", "攻略", "赛事"]}
-                onTabChange={() => {}}
-              />
-            );
-          },
           headerRight: ({ tintColor }) => (
             <TabIcon
               name="search"

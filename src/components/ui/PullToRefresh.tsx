@@ -55,6 +55,8 @@ export type PullToRefreshProps = {
   topPullThreshold?: number;
   /** 弹性阻尼，越大下拉越费力，默认 0.8 */
   elasticity?: number;
+  /** 纵向手势开始/结束（用于锁定外层 PagerView） */
+  onVerticalGesture?: (active: boolean) => void;
 };
 
 export default function PullToRefresh(props: PullToRefreshProps) {
@@ -69,6 +71,7 @@ export default function PullToRefresh(props: PullToRefreshProps) {
     children,
     topPullThreshold = 2,
     elasticity = 0.8,
+    onVerticalGesture,
   } = props;
 
   const triggerHeight = refreshTriggerHeight ?? headerHeight;
@@ -80,12 +83,14 @@ export default function PullToRefresh(props: PullToRefreshProps) {
   const scrollEnabledRef = useRef(false);
   const refreshingRef = useRef(refreshing);
   const elasticityRef = useRef(elasticity);
+  const onVerticalGestureRef = useRef(onVerticalGesture);
   const headerRef = useRef<PullToRefreshHeaderHandle | null>(null);
   const scrollRef = useRef<any>(null);
   const [scrollEnabled, setScrollEnabled] = useState(false);
 
   refreshingRef.current = refreshing;
   elasticityRef.current = elasticity;
+  onVerticalGestureRef.current = onVerticalGesture;
 
   const resetContainerPosition = useCallback(() => {
     Animated.timing(containerTop, {
@@ -147,10 +152,14 @@ export default function PullToRefresh(props: PullToRefreshProps) {
   const panResponder = useMemo(
     () =>
       PanResponder.create({
-        onMoveShouldSetPanResponderCapture: () => {
+        onMoveShouldSetPanResponderCapture: (_, gestureState) => {
           if (refreshingRef.current) return false;
-          // 在顶部时由容器接管手势（与原仓库一致）
-          return !scrollEnabledRef.current;
+          if (scrollEnabledRef.current) return false;
+          // 仅纵向占优时接管，避免挡住 PagerView 左右滑
+          return Math.abs(gestureState.dy) > Math.abs(gestureState.dx);
+        },
+        onPanResponderGrant: () => {
+          onVerticalGestureRef.current?.(true);
         },
         onPanResponderMove: (_, gestureState) => {
           if (gestureState.dy >= 0) {
@@ -175,6 +184,7 @@ export default function PullToRefresh(props: PullToRefreshProps) {
           }
         },
         onPanResponderRelease: () => {
+          onVerticalGestureRef.current?.(false);
           // 松手后才判断是否触发刷新
           if (containerTranslateY.current >= triggerHeight) {
             onRefresh();
@@ -184,6 +194,7 @@ export default function PullToRefresh(props: PullToRefreshProps) {
           checkScroll();
         },
         onPanResponderTerminate: () => {
+          onVerticalGestureRef.current?.(false);
           resetContainerPosition();
           checkScroll();
         },
