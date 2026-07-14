@@ -4,11 +4,12 @@ import { ScrollView, StyleSheet, View } from "react-native";
 import PagerView from "react-native-pager-view";
 
 import { CustomHeaderTabs } from "@/components/CustomTabs";
-import NewsCardItem from "@/components/NewsCardItem";
+import NewsList from "@/components/NewsList";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import Refreshing from "@/components/ui/Refreshing";
 import { useToast } from "@/components/ui/Toast";
+import { NEWS_DATA } from "@/constants/news";
 
 const TABS = ["综合", "攻略", "赛事"] as const;
 
@@ -60,9 +61,7 @@ export default function HomeScreen() {
           style={styles.wrapper}
           refreshing={refreshing}
           onRefresh={onRefresh}
-          onVerticalGesture={(active) =>
-            active ? lockPager() : unlockPager()
-          }
+          onVerticalGesture={(active) => (active ? lockPager() : unlockPager())}
         >
           <ScrollView
             style={styles.container}
@@ -72,18 +71,7 @@ export default function HomeScreen() {
             onScrollEndDrag={unlockPager}
             onMomentumScrollEnd={unlockPager}
           >
-            <ThemedView type="surface" style={styles.container}>
-              <NewsCardItem
-                title="高压锅+法穿棒或峡谷等于版本答案？最详细的高压锅攻略"
-                description="新一期璀璨臻彩召唤活动上线，至臻皮肤限时加入特等奖池。限时拿下心仪至臻、臻彩、限定皮肤，更有机会12元夺宝赢自选臻彩。臻彩【天龙之子 黛安娜 赫赫龙威】，【腥红之月 劫 琉璃】已加入自选臻彩池中，以下是详细介绍。"
-                image={require("@/assets/images/lol.webp")}
-                tag={{
-                  category: "攻略",
-                  time: "2026-07-06",
-                  mediaType: "image",
-                }}
-              />
-            </ThemedView>
+            <NewsList data={NEWS_DATA} />
           </ScrollView>
         </Refreshing>
       </View>
