@@ -1,6 +1,6 @@
 import { useNavigation } from "expo-router";
 import { useCallback, useLayoutEffect, useRef, useState } from "react";
-import { Linking, ScrollView, StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import PagerView from "react-native-pager-view";
 
 import { CustomHeaderTabs } from "@/components/CustomTabs";
@@ -74,9 +74,9 @@ export default function HomeScreen() {
           >
             <Slides
               data={SLIDES_DATA}
-              onClick={(i) => i.url && Linking.openURL(i.url)}
+              onClick={(i) => i.url && alert(i.url)}
               containerStyle={styles.slidesContainer}
-              imageStyle={styles.slidesImage}
+              height={160}
             />
             <NewsList data={NEWS_DATA} />
           </ScrollView>
@@ -120,10 +120,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  slidesImage: {
-    borderRadius: 10,
-  },
   slidesContainer: {
-    paddingHorizontal: 15,
+    paddingHorizontal: 24,
+    paddingTop: 8,
   },
 });

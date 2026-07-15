@@ -43,8 +43,10 @@ export const SLIDES_DATA = [
   },
   {
     image: require("@/assets/images/lol_slide_2.jpeg"),
+    url: "https://lol.qq.com",
   },
   {
     image: require("@/assets/images/lol_slide_3.jpeg"),
+    url: "https://101.qq.com",
   },
 ];

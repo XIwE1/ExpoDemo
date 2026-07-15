@@ -1,15 +1,14 @@
 import { Image } from "expo-image";
 import {
-    Dimensions,
-    ImageStyle,
-    Pressable,
-    StyleProp,
-    StyleSheet,
-    ViewStyle,
+  ImageStyle,
+  StyleProp,
+  StyleSheet,
+  ViewStyle,
 } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
 import Carousel, { Pagination } from "react-native-reanimated-carousel";
 import { ThemedView } from "../themed-view";
+import TapView from "./TapView";
 
 type SlideItem = {
   image: string;
@@ -28,8 +27,6 @@ interface SlidesProps {
   containerStyle?: StyleProp<ViewStyle>;
 }
 
-const width = Dimensions.get("window").width;
-
 export default function Slides(props: SlidesProps) {
   const {
     autoPlay = true,
@@ -44,40 +41,53 @@ export default function Slides(props: SlidesProps) {
   return (
     <ThemedView type="surface" style={[props.containerStyle]}>
       <Carousel
-        style={{ width: "100%", height }}
+        style={{ width: "100%", height, borderRadius: 6 }}
         data={data}
         onProgressChange={progress}
         renderItem={({ item }) => (
-          <Pressable onPress={() => onClick?.(item)}>
+          <TapView onClick={() => onClick?.(item)}>
             <Image
-              style={[props.imageStyle, { width: "100%", height: "100%" }]}
               source={item.image}
-              contentFit="cover"
+              style={[
+                props.imageStyle,
+                {
+                  height: "100%",
+                  borderRadius: 6,
+                },
+              ]}
+              contentFit="fill"
             />
-          </Pressable>
+          </TapView>
         )}
         autoPlay={autoPlay}
         autoPlayInterval={interval}
       />
+      {/* 参考b站的bar 左下方文字 右下方轮播 */}
       <Pagination.Basic
         data={data}
         progress={progress}
         dotStyle={styles.paginationDot}
         activeDotStyle={styles.paginationActiveDot}
+        containerStyle={styles.pagination}
       />
     </ThemedView>
   );
 }
 
 const styles = StyleSheet.create({
+  pagination: {
+    position: "absolute",
+    bottom: 10,
+    gap: 6,
+  },
   paginationDot: {
-    backgroundColor: "#ccc",
+    backgroundColor: "rgba(255,255,255,0.5)",
     borderRadius: 50,
-    marginHorizontal: 5,
-    width: 10,
-    height: 10,
+    marginHorizontal: 2,
+    width: 6,
+    height: 6,
   },
   paginationActiveDot: {
-    backgroundColor: "#1677ff",
+    backgroundColor: "#fff",
   },
 });
