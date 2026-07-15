@@ -1,6 +1,6 @@
 import { useNavigation } from "expo-router";
 import { useCallback, useLayoutEffect, useRef, useState } from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { Linking, ScrollView, StyleSheet, View } from "react-native";
 import PagerView from "react-native-pager-view";
 
 import { CustomHeaderTabs } from "@/components/CustomTabs";
@@ -8,8 +8,9 @@ import NewsList from "@/components/NewsList";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import Refreshing from "@/components/ui/Refreshing";
+import Slides from "@/components/ui/Slides";
 import { useToast } from "@/components/ui/Toast";
-import { NEWS_DATA } from "@/constants/news";
+import { NEWS_DATA, SLIDES_DATA } from "@/constants/news";
 
 const TABS = ["综合", "攻略", "赛事"] as const;
 
@@ -71,6 +72,12 @@ export default function HomeScreen() {
             onScrollEndDrag={unlockPager}
             onMomentumScrollEnd={unlockPager}
           >
+            <Slides
+              data={SLIDES_DATA}
+              onClick={(i) => i.url && Linking.openURL(i.url)}
+              containerStyle={styles.slidesContainer}
+              imageStyle={styles.slidesImage}
+            />
             <NewsList data={NEWS_DATA} />
           </ScrollView>
         </Refreshing>
@@ -112,5 +119,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+  },
+  slidesImage: {
+    borderRadius: 10,
+  },
+  slidesContainer: {
+    paddingHorizontal: 15,
   },
 });

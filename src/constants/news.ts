@@ -33,3 +33,18 @@ export const NEWS_DATA = [
     },
   },
 ];
+
+export const SLIDES_DATA = [
+  {
+    image: require("@/assets/images/lol_slide_1.jpeg"),
+    url: "https://www.baidu.com",
+    title: "英雄联盟经典模式",
+    description: "英雄联盟经典模式定档7月30日，经典·战斗之夜 8月2日登场",
+  },
+  {
+    image: require("@/assets/images/lol_slide_2.jpeg"),
+  },
+  {
+    image: require("@/assets/images/lol_slide_3.jpeg"),
+  },
+];
