@@ -1,10 +1,10 @@
 import { ReactNode } from "react";
-import { Pressable, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { Drawer } from "react-native-drawer-layout";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
+import { ImageBackground } from "expo-image";
 
 type SideDrawerProps = {
   open: boolean;
@@ -12,6 +12,7 @@ type SideDrawerProps = {
   menu?: ReactNode;
   children: ReactNode;
 };
+
 export default function SideDrawer(props: SideDrawerProps) {
   const insets = useSafeAreaInsets();
   const { open, onToggle, menu, children } = props;
@@ -22,22 +23,16 @@ export default function SideDrawer(props: SideDrawerProps) {
       onClose={() => onToggle(false)}
       drawerPosition="left"
       drawerType="front"
+      drawerStyle={styles.drawer}
       swipeEnabled
       renderDrawerContent={() => (
-        <ThemedView style={[styles.panel, { paddingTop: insets.top + 16 }]}>
-          <ThemedText type="subtitle">菜单</ThemedText>
-
-          <ThemedView style={styles.menuContainer}>
-            {menu ? (
-              menu
-            ) : (
-              <>
-                <MenuItem label="我的账号" />
-                <MenuItem label="设置" />
-                <MenuItem label="关于" />
-              </>
-            )}
-          </ThemedView>
+        <ThemedView style={[styles.panel]}>
+          <ImageBackground
+            source={require("@/assets/images/lol_background.jpg")}
+            style={styles.background}
+            contentFit="cover"
+          ></ImageBackground>
+          <ThemedView style={styles.menuContainer}>{menu}</ThemedView>
         </ThemedView>
       )}
     >
@@ -46,23 +41,21 @@ export default function SideDrawer(props: SideDrawerProps) {
   );
 }
 
-function MenuItem({ label, onPress }: { label: string; onPress?: () => void }) {
-  return (
-    <Pressable onPress={onPress} style={styles.item}>
-      <ThemedText>{label}</ThemedText>
-    </Pressable>
-  );
-}
-
 const styles = StyleSheet.create({
   panel: {
     flex: 1,
-    paddingHorizontal: 16,
+    // paddingHorizontal: 16,
+    backgroundColor: "transparent",
+  },
+  background: {
+    width: "100%",
+    height: "100%",
   },
   menuContainer: {
     gap: 4,
+    backgroundColor: "transparent",
   },
-  item: {
-    paddingVertical: 14,
+  drawer: {
+    width: "80%",
   },
 });

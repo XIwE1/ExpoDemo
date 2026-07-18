@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 
-type IoniconName = React.ComponentProps<typeof Ionicons>["name"];
+export type IoniconName = React.ComponentProps<typeof Ionicons>["name"];
 
 type TabIconProps = {
   name: IoniconName;

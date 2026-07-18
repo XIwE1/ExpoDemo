@@ -16,7 +16,7 @@ export const NEWS_DATA = [
       "新一期璀璨臻彩召唤活动上线，至臻皮肤限时加入特等奖池。限时拿下心仪至臻、臻彩、限定皮肤，更有机会12元夺宝赢自选臻彩。臻彩【天龙之子 黛安娜 赫赫龙威】，【腥红之月 劫 琉璃】已加入自选臻彩池中，以下是详细介绍。",
     image: require("@/assets/images/lol.webp"),
     tag: {
-      category: "攻略",
+      category: "活动",
       time: "2026-07-06",
       mediaType: "image",
     },
@@ -30,6 +30,16 @@ export const NEWS_DATA = [
       category: "活动",
       time: "2026-07-14",
       mediaType: "image",
+    },
+  },
+  {
+    title: "冥火、文森特之剑、AP剑圣、1%暴击符文！经典模式玩法大盘点",
+    description: "经典模式即将回归，让我们一起来看看有哪些玩法值得期待吧！",
+    // image: require("@/assets/images/lol_image3.png"),
+    tag: {
+      category: "攻略",
+      time: "2026-07-18",
+      mediaType: "video",
     },
   },
 ];

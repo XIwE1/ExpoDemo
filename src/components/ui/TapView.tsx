@@ -11,12 +11,8 @@ export type TapViewProps = {
   maxDistance?: number;
 };
 
-export default function TapView({
-  onClick,
-  children,
-  style,
-  maxDistance = 10,
-}: TapViewProps) {
+export default function TapView(props: TapViewProps) {
+  const { onClick, children, style, maxDistance = 10 } = props;
   const tap = Gesture.Tap()
     .maxDistance(maxDistance)
     .onEnd(() => {
