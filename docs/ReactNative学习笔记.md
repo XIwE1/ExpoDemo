@@ -141,7 +141,7 @@ js操作路由 router = useNavigation() router.navigate('xxx') .replace (Stack�
 路由参数 [id].js 文件，Link - href - pathname: '/[id]' / params: { id }
 useLocalSearchParams() 获取路由参数
 
-Linking.openURL 打开浏览器 深度链接
+Linking.openURL 打开浏览器 唤醒深度链接
 WebBrowser.openBrowserAsync 内部打开网页
 webview 嵌套网页 userAgent协助处理页头页脚 onShouldStartLoadWithRequest拦截网页自身跳转 app处理（有返回逻辑）
 
