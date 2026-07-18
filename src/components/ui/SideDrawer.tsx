@@ -1,9 +1,8 @@
 import { ReactNode } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { Drawer } from "react-native-drawer-layout";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { ThemedView } from "@/components/themed-view";
 import { ImageBackground } from "expo-image";
 
 type SideDrawerProps = {
@@ -26,14 +25,15 @@ export default function SideDrawer(props: SideDrawerProps) {
       drawerStyle={styles.drawer}
       swipeEnabled
       renderDrawerContent={() => (
-        <ThemedView style={[styles.panel]}>
-          <ImageBackground
-            source={require("@/assets/images/lol_background.jpg")}
-            style={styles.background}
-            contentFit="cover"
-          ></ImageBackground>
-          <ThemedView style={styles.menuContainer}>{menu}</ThemedView>
-        </ThemedView>
+        <ImageBackground
+          source={require("@/assets/images/lol_background.jpg")}
+          style={styles.background}
+          contentFit="cover"
+        >
+          <View style={[styles.menuContainer, { paddingTop: insets.top + 16 }]}>
+            {menu}
+          </View>
+        </ImageBackground>
       )}
     >
       {children}

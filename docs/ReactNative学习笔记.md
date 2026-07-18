@@ -78,16 +78,20 @@ Dimensions.get('windows') 获取屏幕宽高
 <icon> 使用expo的 MaterialIcons ，好的效果需要配合SF symbols做映射
 
 **app/\_layout.js布局文件 自动生效**
+**app/(tabs)/\_layout.js 负责底部 Tab 导航** TabItem的name要与文件名对齐 user.js video.js，自带Stack
+**app/xx 不在tabs里的页面**
+
 <Stack>布局组件 (title + 过度 + 返回按钮) screenOptions设置效果（特别是安卓）
 页面组件里 Stack.Screen 可以设置title，TintColor TitleStyle headerStyle 设置顶部样式
 最好在布局组件里使用 Stack.Screen + name 匹配页面统一配置，需要路由参数则 options={({routet}) => ({ title })}
 options.presentation = 'modal' 设置模态弹窗 / 'fullScreenModal' 全屏弹窗, options.animation = 'slide_from_bottom' 安卓实现底部弹出
 headerTitle headerLeft/Right 自定义设置标题左右侧
+
 <Tabs> 底部导航栏 路由
-**(tabs)/\_layout.js** 只负责底部 Tab 导航，TabItem的name要与文件名对齐 user.js video.js，自带Stack
 screenoptions 配置header和tab
 tabs.screen options.tabBarIcon 配置导航图标
 stack name=(tabs) headerShown=false 否则会跟tabbar自身的header重叠
+
 <NativeTabs> 原生底部导航栏 支持液态玻璃 配合SF图标库，不会自带Stack
 NativeTabs.trigger
 需要去 app/\_layout.js里配置Stack options 迁移Tabs.screenoptions
@@ -99,6 +103,7 @@ onLoadProgress renderLoading 渲染加载状态
 <Share> 分享组件 支持message url，ios可以生成卡片
 
 <SideMenu> 侧边栏
+<Drawer /> 抽屉式侧边栏
 
 <VideoView player={x}> 视频播放器 expo video player = useVideoPlayer
 
