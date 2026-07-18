@@ -8,16 +8,22 @@ import TagItem, { TagItemProps } from "./ui/TagItem";
 
 interface NewsCardItemProps extends CardItemProps {
   tag: TagItemProps;
+  url: string;
 }
 
 export default function NewsCardItem(props: NewsCardItemProps) {
   const router = useRouter();
-  const { tag, ...cardItemProps } = props;
+  const { tag, url, ...cardItemProps } = props;
   const { category, time, mediaType } = tag;
   return (
     <Pressable
       onPress={() => {
-        router.push(`/modal`);
+        router.push({
+          pathname: "/articles",
+          params: {
+            url,
+          },
+        });
       }}
     >
       <ThemedView style={styles.wrap}>

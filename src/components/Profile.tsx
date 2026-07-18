@@ -18,12 +18,14 @@ export default function Profile(props: ProfileProps) {
           source={{ uri: user.avatar }}
           style={[common.circle, styles.avatar]}
         />
-        <ThemedText lightColor="white" darkColor="white">
+        <ThemedText type="defaultSemiBold" lightColor="white" darkColor="white">
           {user.name}
         </ThemedText>
       </View>
       <View style={[common.centerStart, styles.content]}>
-        <Cell icon="person-outline" title="个人信息" titleColor="white" />
+        <Cell icon="chatbox-outline" title="我的评论" titleColor="white" />
+        <Cell icon="cart-outline" title="我的订单" titleColor="white" />
+        <Cell icon="heart-outline" title="我的收藏" titleColor="white" />
         <Cell icon="settings-outline" title="设置" titleColor="white" />
       </View>
     </View>

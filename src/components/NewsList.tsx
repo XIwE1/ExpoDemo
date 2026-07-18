@@ -16,6 +16,7 @@ export default function NewsList(props: NewsListProps) {
         <NewsCardItem
           key={item.title}
           title={item.title}
+          url={item.url}
           description={item.description}
           image={item.image}
           tag={item.tag}
