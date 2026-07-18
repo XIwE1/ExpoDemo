@@ -30,6 +30,7 @@ export default function SideDrawer(props: SideDrawerProps) {
           style={styles.background}
           contentFit="cover"
         >
+          <View style={styles.mask} />
           <View style={[styles.menuContainer, { paddingTop: insets.top + 16 }]}>
             {menu}
           </View>
@@ -51,7 +52,12 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
   },
+  mask: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: "rgba(0,0,0,0.45)",
+  },
   menuContainer: {
+    flex: 1,
     gap: 4,
     backgroundColor: "transparent",
   },
