@@ -55,7 +55,7 @@ scripts/          # 工具脚本（如 reset-project.js）
 - **路径别名**: `@/*` → 项目根目录（见 tsconfig.json）
 - **导入示例**: `import { Colors } from '@/constants/theme'`
 - **主题**: 使用 `useColorScheme()` + `Colors[colorScheme]`，组件优先用 `ThemedText` / `ThemedView`
-- **组件风格**: 函数组件 + hooks，无 class 组件
+- **组件风格**: 函数组件 + hooks，无 class 组件，组件props的结构用一行代码解构 而不是在函数参数中解构
 
 ## 常用命令
 
