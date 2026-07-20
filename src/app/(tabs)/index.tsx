@@ -1,4 +1,4 @@
-import { useNavigation } from "expo-router";
+import { router, useNavigation } from "expo-router";
 import { useCallback, useLayoutEffect, useRef, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import PagerView from "react-native-pager-view";
@@ -74,7 +74,7 @@ export default function HomeScreen() {
           >
             <Slides
               data={SLIDES_DATA}
-              onClick={(i) => i.url && alert(i.url)}
+              onClick={(i) => i.url && router.push(`/articles?url=${i.url}`)}
               containerStyle={styles.slidesContainer}
               height={160}
             />
