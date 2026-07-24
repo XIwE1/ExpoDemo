@@ -22,7 +22,7 @@ export default function RecordScreen() {
 
 const styles = StyleSheet.create({
   recordBg: {
-    height: 200,
+    height: 210,
     width: "100%",
     bottom: 0,
     left: 0,
