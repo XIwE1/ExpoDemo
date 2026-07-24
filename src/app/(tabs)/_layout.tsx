@@ -2,7 +2,7 @@ import { Tabs, useSegments } from "expo-router";
 import React, { useState } from "react";
 import { Pressable, StyleSheet } from "react-native";
 
-import Profile from "@/components/Profile";
+import Profile from "@/components/profile/Profile";
 import { IconSymbol } from "@/components/ui/icon-symbol";
 import SideDrawer from "@/components/ui/SideDrawer";
 import TabIcon from "@/components/ui/TabIcon";

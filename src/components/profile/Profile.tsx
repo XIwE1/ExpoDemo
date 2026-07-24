@@ -2,8 +2,8 @@ import { common } from "@/styles/common";
 import { User } from "@/types/user";
 import { Image } from "expo-image";
 import { StyleSheet, View } from "react-native";
-import { ThemedText } from "./themed-text";
-import Cell from "./ui/Cell";
+import { ThemedText } from "../themed-text";
+import Cell from "../ui/Cell";
 
 interface ProfileProps {
   user: User;
@@ -14,10 +14,7 @@ export default function Profile(props: ProfileProps) {
   return (
     <View style={styles.container}>
       <View style={[common.center, styles.header]}>
-        <Image
-          source={{ uri: user.avatar }}
-          style={[common.circle, styles.avatar]}
-        />
+        <Image source={user.avatar} style={[common.circle, styles.avatar]} />
         <ThemedText type="defaultSemiBold" lightColor="white" darkColor="white">
           {user.name}
         </ThemedText>
