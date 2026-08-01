@@ -8,7 +8,7 @@ export default function Record() {
   const { avatar, name, level, winRate } = USER_DATA;
   return (
     <ThemedView style={styles.container}>
-      <ThemedView style={styles.item}>
+      <ThemedView style={[styles.item, { paddingVertical: 8 }]}>
         <RecordHeader
           avatar={avatar}
           name={name}
@@ -32,7 +32,6 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   item: {
-    borderRadius: 16,
     padding: 16,
   },
 });

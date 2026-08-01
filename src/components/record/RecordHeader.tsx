@@ -14,7 +14,7 @@ interface RecordHeaderProps {
 export default function RecordHeader(props: RecordHeaderProps) {
   const { avatar, name, level, winRate } = props;
   return (
-    <ThemedView style={[common.rowStart, styles.container]}>
+    <ThemedView style={[common.row, styles.container]}>
       <View style={styles.left}>
         <Image source={avatar} style={[common.circle, styles.avatar]} />
       </View>
@@ -33,13 +33,10 @@ const styles = StyleSheet.create({
     gap: 16,
   },
 
-  left: {
-    top: "-50%",
-    overflow: "hidden",
-  },
+  left: {},
   right: {
     gap: 2,
-    top: -10,
+    // top: -10,
     opacity: 0.85,
   },
   avatar: {

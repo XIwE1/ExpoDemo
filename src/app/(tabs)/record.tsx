@@ -11,7 +11,7 @@ export default function RecordScreen() {
         <Image
           source={require("@/assets/images/lol_record_background.jpg")}
           style={styles.recordBg}
-          contentFit="scale-down"
+          contentFit="cover"
         />
       }
     >
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   recordBg: {
     height: 210,
     width: "100%",
-    bottom: 0,
+    top: 0,
     left: 0,
     position: "absolute",
   },
